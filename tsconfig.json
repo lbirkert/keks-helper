@@ -12,7 +12,9 @@
 		"emitDecoratorMetadata": true,
 
 		"skipLibCheck": false,
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
+
+		"baseUrl": "src"
 	},
 	"exclude": ["build", "node_modules"]
 }
