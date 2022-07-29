@@ -6,7 +6,7 @@ import "reflect-metadata";
 
 import { dirname, importx } from "@discordx/importer";
 import { Koa } from "@discordx/koa";
-import type { Interaction, Message } from "discord.js";
+import { ActivityType, Interaction, Message } from "discord.js";
 import { IntentsBitField } from "discord.js";
 import { Client } from "discordx";
 
@@ -52,6 +52,10 @@ bot.once("ready", async () => {
 	//  );
 
 	console.log("Bot started");
+
+    bot.user?.setPresence({ status: "online", afk: false, activities: [
+        {name: "BIG CHUNGUS Vs. THANOS | Phase 1: Episode 1", type: ActivityType.Watching, url: "https://www.youtube.com/watch?v=sOY5TfmfO5Q" }
+    ]});
 });
 
 bot.on("interactionCreate", (interaction: Interaction) => {
