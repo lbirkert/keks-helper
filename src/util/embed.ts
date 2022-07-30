@@ -3,6 +3,7 @@ import { APIEmbed, EmbedBuilder, PermissionResolvable, PermissionsBitField } fro
 export namespace EmbedUtil {
 	export type EssentialOptions = {
 		footer?: boolean;
+		timestamp?: boolean;
 	};
 
 	export function checkPermissions(
@@ -10,7 +11,7 @@ export namespace EmbedUtil {
 		permission: PermissionResolvable
 	): EmbedBuilder | void {
 		if (!permissions.has(permission)) {
-			const builder = newBuilder({ footer: true });
+			const builder = newBuilder();
 
 			builder.setColor("Red");
 			builder.setTitle(`Missing Permission${permission instanceof Array ? "s" : ""}`);
@@ -28,7 +29,7 @@ export namespace EmbedUtil {
 	}
 
 	export function addEssential(builder: EmbedBuilder, options?: EssentialOptions) {
-		if (options?.footer) {
+		if (options?.footer != false) {
 			builder.setFooter({
 				iconURL:
 					"https://cdn.discordapp.com/avatars/874339646044262473/aa5eec25594728a925cec3bcd9648720.webp",
@@ -36,6 +37,6 @@ export namespace EmbedUtil {
 			});
 		}
 
-		builder.setTimestamp(new Date());
+		if (options?.timestamp != false) builder.setTimestamp(new Date());
 	}
 }

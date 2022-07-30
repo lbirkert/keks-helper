@@ -1,5 +1,5 @@
 import {
-    ActionRowBuilder,
+	ActionRowBuilder,
 	ApplicationCommandOptionType,
 	ButtonBuilder,
 	ButtonInteraction,
@@ -17,7 +17,7 @@ import {
 import { Discord, Slash, SlashOption, ButtonComponent } from "discordx";
 
 import { EmbedUtil } from "../util/embed.js";
-import { awaitMessage } from '../util/message.js';
+import { awaitMessage } from "../util/message.js";
 
 @Discord()
 export class RulesCommand {
@@ -37,35 +37,34 @@ export class RulesCommand {
 						content: "Please enter the text you want to use as rules",
 						ephemeral: true
 					});
-					
-                    try {
-                        const message = await awaitMessage(channel, user.id, 120_000);
-    
-                        const acceptBtn = new ButtonBuilder()
-                            .setEmoji("✅")
-                            .setLabel("Accept")
-                            .setStyle(ButtonStyle.Primary)
-                            .setCustomId("rules-accept-" + role.id);
-    
-                        const row = new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-                            acceptBtn
-                        );
-    
-                        const embed = EmbedUtil.newBuilder({ footer: true });
-                        embed.setTimestamp(undefined)
-                            .setColor("Blurple")
-                            .setTitle("Rules")
-                            .setDescription(message.content);
-    
-                        channel.send({
-                            embeds: [embed],
-                            components: [row]
-                        });
-    
-                        message.delete();
-                    } catch(e) {
-                        interaction.editReply("Canceled");
-                    }
+
+					try {
+						const message = await awaitMessage(channel, user.id, 120_000);
+
+						const acceptBtn = new ButtonBuilder()
+							.setEmoji("✅")
+							.setLabel("Accept")
+							.setStyle(ButtonStyle.Primary)
+							.setCustomId("rules-accept-" + role.id);
+
+						const row = new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+							acceptBtn
+						);
+
+						const embed = EmbedUtil.newBuilder({ timestamp: false })
+							.setColor("Blurple")
+							.setTitle("Rules")
+							.setDescription(message.content);
+
+						channel.send({
+							embeds: [embed],
+							components: [row]
+						});
+
+						message.delete();
+					} catch (e) {
+						interaction.editReply("Canceled");
+					}
 				}
 			} else
 				interaction.reply({

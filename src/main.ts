@@ -53,9 +53,17 @@ bot.once("ready", async () => {
 
 	console.log("Bot started");
 
-    bot.user?.setPresence({ status: "online", afk: false, activities: [
-        {name: "BIG CHUNGUS Vs. THANOS | Phase 1: Episode 1", type: ActivityType.Watching, url: "https://www.youtube.com/watch?v=sOY5TfmfO5Q" }
-    ]});
+	bot.user?.setPresence({
+		status: "online",
+		afk: false,
+		activities: [
+			{
+				name: "BIG CHUNGUS Vs. THANOS | Phase 1: Episode 1",
+				type: ActivityType.Watching,
+				url: "https://www.youtube.com/watch?v=sOY5TfmfO5Q"
+			}
+		]
+	});
 });
 
 bot.on("interactionCreate", (interaction: Interaction) => {
