@@ -9,9 +9,15 @@ import { Koa } from "@discordx/koa";
 import { ActivityType, Interaction, Message } from "discord.js";
 import { IntentsBitField } from "discord.js";
 import { Client } from "discordx";
+import fs from "fs";
+import path from "path";
 
 import dotenv from "dotenv";
 dotenv.config();
+
+export const CACHE_PATH = path.join(process.cwd(), process.env.CACHE_PATH || "__cache__");
+
+fs.mkdirSync(CACHE_PATH, { recursive: true });
 
 export const bot = new Client({
 	// To only use global commands (use @Guild for specific guild command), comment this line
