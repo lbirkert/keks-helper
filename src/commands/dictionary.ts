@@ -12,7 +12,8 @@ import { makeRequest, makeRequestJ } from "../util/request.js";
 import { EmbedUtil } from "../util/embed.js";
 
 @Discord()
-export class JokeCommand {
+export class DictionaryCommand {
+    @Slash("define")
 	@Slash("dictionary")
 	async dictionary(
 		@SlashOption("word", { type: ApplicationCommandOptionType.String })
@@ -21,7 +22,8 @@ export class JokeCommand {
 	): Promise<void> {
 		await interaction.deferReply();
 
-		const {status, data} = await makeRequestJ("https://api.dictionaryapi.dev/api/v2/entries/en/" + word);
+		const {status, data} = await makeRequestJ("https://api.dictionaryapi.dev/api/v2/entries/en/" + 
+            encodeURIComponent(word));
 
 		if(status === 200) {
             const embed = EmbedUtil.newBuilder()
@@ -91,8 +93,9 @@ export class JokeCommand {
                 embeds: [embed],
                 files: _files
             });
+        } else if(status == 404) {
+            await interaction.editReply(`❌ '${word}' was not found in dictionary!`);
         } else await interaction.editReply({
-            content: `❌ '${word}' was not found in dictionary!`
-        })
+            embeds: [EmbedUtil.unexpected(data)]});
 	}
 }

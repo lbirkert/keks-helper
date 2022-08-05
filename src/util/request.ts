@@ -38,7 +38,7 @@ export function isURLResolvable(obj: any): boolean {
 
 export async function makeRequestJ(request: Request | URLResolvable, cache: boolean = false): Promise<JResponse> {
     const response = await makeRequest(request, cache);
-
+    
     return {...response, data: JSON.parse(response.data.toString()) };
 }
 
