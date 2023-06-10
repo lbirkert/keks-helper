@@ -1,7 +1,8 @@
 import { EmbedBuilder, PermissionResolvable, PermissionsBitField } from "discord.js";
 
 export namespace EmbedUtil {
-	export const FOOTER_ICON_URL = process.env.FOOTER_ICON_URL || 
+	export const FOOTER_ICON_URL =
+		process.env.FOOTER_ICON_URL ||
 		"https://cdn.discordapp.com/avatars/874339646044262473/aa5eec25594728a925cec3bcd9648720.webp";
 
 	export type EssentialOptions = {
@@ -48,7 +49,7 @@ export namespace EmbedUtil {
 		return newBuilder()
 			.setTitle("Yikes")
 			.setColor("DarkRed")
-			.setDescription(`An unexpected Error occured\n\n\`\`\`${escape(content)}\`\`\``)
+			.setDescription(`An unexpected Error occured\n\n\`\`\`${escape(content)}\`\`\``);
 	}
 
 	export function escape(content: string): string {

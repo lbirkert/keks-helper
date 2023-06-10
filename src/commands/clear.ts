@@ -13,11 +13,20 @@ import { EmbedUtil } from "../util/embed.js";
 
 @Discord()
 export class ClearCommand {
-	@Slash("clear")
+	@Slash({ name: "clear", description: "Clear messages" })
 	async clear(
-		@SlashOption("amount", { type: ApplicationCommandOptionType.Integer })
+		@SlashOption({
+			type: ApplicationCommandOptionType.Integer,
+			name: "amount",
+			description: "amount",
+			required: true
+		})
 		amount: number,
-		@SlashOption("author", { type: ApplicationCommandOptionType.User, required: false })
+		@SlashOption({
+			name: "author",
+			description: "author",
+			type: ApplicationCommandOptionType.User
+		})
 		author: User | GuildMember | undefined,
 		interaction: CommandInteraction
 	): Promise<void> {

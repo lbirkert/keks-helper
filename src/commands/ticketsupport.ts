@@ -12,13 +12,9 @@ import {
 	CategoryChannel,
 	ChannelType,
 	Collection,
-	PermissionOverwrites,
-	OverwriteResolvable,
-	Snowflake,
-	ActionRow,
-	ButtonComponent
+	OverwriteResolvable
 } from "discord.js";
-import { Discord, Slash, SlashOption, ButtonComponent as AButtonComponent } from "discordx";
+import { Discord, Slash, SlashOption, ButtonComponent } from "discordx";
 
 import { awaitMessage } from "../util/message.js";
 import { EmbedUtil } from "../util/embed.js";
@@ -42,9 +38,17 @@ const ticketPermsAllowObj: any = ticketPermsAllow
 
 @Discord()
 export class TSCommand {
-	@Slash("ticketsupport")
+	@Slash({
+		name: "ticketsupport",
+		description: "ticketsupport"
+	})
 	async ticketsupport(
-		@SlashOption("category", { type: ApplicationCommandOptionType.Channel })
+		@SlashOption({
+			name: "category",
+			description: "category",
+			type: ApplicationCommandOptionType.Channel,
+			required: true
+		})
 		category: GuildChannel,
 		interaction: CommandInteraction
 	): Promise<void> {
@@ -95,7 +99,7 @@ export class TSCommand {
 		}
 	}
 
-	@AButtonComponent(/ts-open-[0-9]+/)
+	@ButtonComponent({ id: /ts-open-[0-9]+/ })
 	async tsOpenBtn(interaction: ButtonInteraction): Promise<void> {
 		if (interaction.guild) {
 			const { user, customId, guild } = interaction;
@@ -158,7 +162,7 @@ export class TSCommand {
 		}
 	}
 
-	@AButtonComponent(/ts-claim-[0-9]+/)
+	@ButtonComponent({ id: /ts-claim-[0-9]+/ })
 	async tsClaimBtn(interaction: ButtonInteraction): Promise<void> {
 		if (interaction.channel instanceof TextChannel) {
 			const { user, channel, customId, message } = interaction;
@@ -186,7 +190,7 @@ export class TSCommand {
 		}
 	}
 
-	@AButtonComponent("ts-close")
+	@ButtonComponent({ id: "ts-close" })
 	async tsCloseBtn(interaction: ButtonInteraction): Promise<void> {
 		if (interaction.channel instanceof TextChannel) {
 			const { user, channel, message } = interaction;

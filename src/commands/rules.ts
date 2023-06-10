@@ -5,14 +5,11 @@ import {
 	ButtonInteraction,
 	ButtonStyle,
 	CommandInteraction,
-	GuildMember,
 	GuildMemberRoleManager,
-	Message,
 	MessageActionRowComponentBuilder,
 	PermissionsBitField,
 	Role,
-	TextChannel,
-	User
+	TextChannel
 } from "discord.js";
 import { Discord, Slash, SlashOption, ButtonComponent } from "discordx";
 
@@ -21,9 +18,17 @@ import { awaitMessage } from "../util/message.js";
 
 @Discord()
 export class RulesCommand {
-	@Slash("rules")
+	@Slash({
+		name: "rules",
+		description: "rules"
+	})
 	async rules(
-		@SlashOption("role", { type: ApplicationCommandOptionType.Role })
+		@SlashOption({
+			name: "role",
+			description: "role",
+			type: ApplicationCommandOptionType.Role,
+			required: true
+		})
 		role: Role,
 		interaction: CommandInteraction
 	): Promise<void> {
@@ -74,7 +79,7 @@ export class RulesCommand {
 		}
 	}
 
-	@ButtonComponent(/rules-accept-[0-9]+/)
+	@ButtonComponent({ id: /rules-accept-[0-9]+/ })
 	async rulesAcceptBtn(interaction: ButtonInteraction): Promise<void> {
 		if (interaction.guild && interaction.member) {
 			const role_id = interaction.customId.slice(13);

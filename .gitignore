@@ -2,14 +2,12 @@
 .vscode
 .env
 .env.local
-package-lock.json
 yarn.lock
+bun.lockb
 
 # folders
 build
 node_modules
-
-package-lock.json
 
 old/
 
